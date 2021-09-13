@@ -17,9 +17,10 @@ class Post extends Model
         parent::boot();
 
         self::creating(function ($post) {
-            if (request()->category && !request()->routeIs('categories.*'))
+            if (request()->category && !request()->routeIs('categories.*')) {
                 $post->category()->associate(Category::find(request()->category));
-            $post->user()->associate(auth()->user()->id);
+                $post->user()->associate(auth()->user()->id);
+            }
         });
     }
 
